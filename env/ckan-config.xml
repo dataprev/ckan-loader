@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<dados:ckan-config xmlns:dados="http://www.dados.gov.br/ns/script/ckan-config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.dados.gov.br/ns/script/ckan-config ../br/gov/dados/script/config/xsd/ckan-config.xsd ">
+	
+	<dados:ckan-config-params name="dev">
+	
+		<!-- CKAN API Connection details -->
+		<dados:ckan-connection>
+			<dados:url-api>http://ckan.dados.gov.br/api</dados:url-api>
+			<dados:api-key></dados:api-key>
+		</dados:ckan-connection>
+		
+		<!-- Datasets -->
+		
+		<dados:ckan-dataset>
+			<dados:name>sample1-dataset</dados:name>
+			<dados:title>Sample Dataset</dados:title>
+			<dados:url></dados:url>
+			<dados:author></dados:author>
+			<dados:author-email></dados:author-email>
+			<dados:maintainer>Foo Bar</dados:maintainer>
+			<dados:maintainer-email>foo.bar@dados.gov.br</dados:maintainer-email>
+			<dados:license-id>cc-by-sa</dados:license-id>
+			<dados:version></dados:version>
+			<dados:notes></dados:notes>
+			<dados:tags></dados:tags>
+			<dados:state></dados:state>
+			<dados:resources-csv-path>csv/sample1.csv</dados:resources-csv-path>
+			<dados:groups-csv-path></dados:groups-csv-path>
+		</dados:ckan-dataset>
+
+		<dados:ckan-dataset>
+			<dados:name>sample2-dataset</dados:name>
+			<dados:title>Colors JSON</dados:title>
+			<dados:url></dados:url>
+			<dados:author></dados:author>
+			<dados:author-email></dados:author-email>
+			<dados:maintainer>Foo Bar</dados:maintainer>
+			<dados:maintainer-email>foo.bar@dados.gov.br</dados:maintainer-email>
+			<dados:license-id>cc-by-sa</dados:license-id>
+			<dados:version></dados:version>
+			<dados:notes>Colors Hex value JSON</dados:notes>
+			<dados:tags></dados:tags>
+			<dados:state></dados:state>
+			<dados:resources-csv-path>csv/sample2.csv</dados:resources-csv-path>
+			<dados:groups-csv-path></dados:groups-csv-path>
+		</dados:ckan-dataset>
+			
+		
+	</dados:ckan-config-params>
+	
+</dados:ckan-config>

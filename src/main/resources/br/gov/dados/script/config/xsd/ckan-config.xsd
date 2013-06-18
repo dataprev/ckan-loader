@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.dados.gov.br/ns/script/ckan-config"
+	xmlns:dados="http://www.dados.gov.br/ns/script/ckan-config">
+	
+	<xs:element name="ckan-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ckan-config-params" minOccurs="1"
+					maxOccurs="unbounded" type="dados:ckan-config-params-type">
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="ckan-config-params-type">
+		<xs:sequence>
+			<xs:element name="ckan-connection" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="url-api" type="xs:string"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element name="api-key" type="xs:string" minOccurs="1"
+							maxOccurs="1" />
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ckan-dataset" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="url" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="author" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="author-email" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="maintainer" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="maintainer-email" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="license-id" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="notes" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="tags" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="state" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="resources-csv-path" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="groups-csv-path" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<!-- criar elemento que considere key/value  -->
+						<!--<xs:element name="" type="xs:string" minOccurs="0" maxOccurs="unbounded" /> -->
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+					Referência do dataset que será carregado pelo script.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

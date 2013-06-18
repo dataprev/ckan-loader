@@ -1,0 +1,334 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>br.gov.dados</groupId>
+	<artifactId>ckan-loader</artifactId>
+	<version>1.0.0</version>
+	<url>http://dados.gov.br</url>
+	
+	<properties>
+		<projectBuildSourceEncoding>UTF-8</projectBuildSourceEncoding>
+		<projectRunMainClass>org.python.util.JarRunner</projectRunMainClass>
+	</properties>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/scripts</directory>
+			</resource>
+		</resources>
+		<plugins>
+			
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<finalName>${project.build.finalName}</finalName>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>${projectRunMainClass}</mainClass>
+									<classpathPrefix>lib/</classpathPrefix>
+								</manifest>
+								<manifestEntries>
+									<Implementation-Version>${project.version}</Implementation-Version>
+									<Implementation-Vendor>OPENDATA.dados.gov.br</Implementation-Vendor>
+									<Implementation-Title>${project.artifactId}</Implementation-Title>
+								</manifestEntries>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+				</plugin>-->
+					 
+			<plugin>
+				<groupId>net.sf.mavenjython</groupId>
+				<artifactId>jython-compile-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<!--<phase>prepare-package</phase>-->
+						<goals>
+							<goal>jython</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<libraries>
+						<param>nose</param>
+						<param>ckanclient</param>
+					</libraries>
+				</configuration>
+			</plugin>
+			 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+			
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${projectRunMainClass}</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+							<mode>development</mode>
+						    <url>${project.url}</url>
+						    <key>value</key>
+						</manifestEntries>
+					</archive>
+					<finalName>${project.artifactId}-full</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+	<dependencies>
+	
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython-standalone</artifactId>
+			<version>2.5.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<profiles>
+		
+		<profile>
+			<id>jaxb_generate</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jvnet.jaxb2.maven2</groupId>
+						<artifactId>maven-jaxb2-plugin</artifactId>
+						<version>0.8.1</version>
+						<executions>
+							<execution>
+								<id>default-xjc</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+
+							<generateDirectory>src/main/java</generateDirectory>
+							<generatePackage>br.gov.dados.script.config.mapping.ckanconfig</generatePackage>
+
+							<schemaDirectory>src/main/resources/br/gov/dados/script/config/xsd</schemaDirectory>
+							<includeSchemas>
+								<includeSchema>**/*.xsd</includeSchema>
+								<includeSchema>**/*.dtd</includeSchema>
+							</includeSchemas>
+							<excludeSchemas>
+								<excludeSchema>test*.xsd</excludeSchema>
+							</excludeSchemas>
+
+							<bindingDirectory>src/main/extra_resources/binding</bindingDirectory>
+							<includeBindings>
+								<includeBinding>*.xjb</includeBinding>
+							</includeBindings>
+
+							<strict>true</strict>
+							<verbose>true</verbose>
+							<readOnly>false</readOnly>
+							<removeOldOutput>false</removeOldOutput>
+
+							<extension>true</extension>
+							<args>
+								<arg>-Xcollection-setter-injector</arg>
+								<!-- <arg>-Xsync-methods</arg> -->
+								<!-- <arg>-XtoString</arg> -->
+								<!-- <arg>-Xequals</arg> -->
+								<!-- <arg>-XhashCode</arg> -->
+							</args>
+
+							<plugins>
+								<plugin>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics</artifactId>
+									<version>0.6.0</version>
+								</plugin>
+								<plugin>
+									<groupId>net.java.dev.vcc.thirdparty</groupId>
+									<artifactId>collection-setter-injector</artifactId>
+									<version>0.5.0-1</version>
+								</plugin>
+							</plugins>
+
+						</configuration>
+					</plugin>
+					<!-- -->
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<configuration>
+									<target>
+
+										<property name="project_extra_resources" value="${basedir}/src/main/extra_resources" />
+										<property name="project_src" value="${basedir}/src/main/java" />
+
+										<echo>Copiando jaxb.properties do config e ObjectFactory para
+											impl</echo>
+										<copy file="${project_extra_resources}/jaxb.properties"
+											todir="${project_src}/br/gov/dados/script/config/mapping/ckanconfig" />
+										<mkdir
+											dir="${project_src}/br/gov/dados/script/config/mapping/ckanconfig/impl" />
+										<copy
+											file="${project_src}/br/gov/dados/script/config/mapping/ckanconfig/ObjectFactory.java"
+											todir="${project_src}/br/gov/dados/script/config/mapping/ckanconfig/impl/" />
+
+										<replace
+											file="${project_src}/br/gov/dados/script/config/mapping/ckanconfig/impl/ObjectFactory.java">
+											<replacetoken><![CDATA[package br.gov.dados.script.config.mapping.ckanconfig;]]></replacetoken>
+											<replacevalue>
+												<![CDATA[package br.gov.dados.script.config.mapping.ckanconfig.impl;
+
+import br.gov.dados.script.config.mapping.ckanconfig.CkanConfigParamsType;
+import br.gov.dados.script.config.mapping.ckanconfig.CkanConfig;]]>
+											</replacevalue>
+										</replace>
+
+										<replace
+											file="${project_src}/br/gov/dados/script/config/mapping/ckanconfig/package-info.java"
+											token=".QUALIFIED)"
+											value=".QUALIFIED,location=&quot;br/gov/dados/script/config/xsd/ckan-config.xsd&quot;)" />
+
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>local</id>
+			<build>
+				<plugins>
+					<!-- <plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<configuration>
+									<target>
+										<copy todir="${project.build.directory}/config">
+											<fileset dir="${basedir}/src/main/extra_resources/config"/>
+										</copy>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin> -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<executions>
+							<execution>
+								<id>run_local</id>
+								<phase>package</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<workingDirectory>target</workingDirectory>
+									<executable>java</executable>
+									<arguments>
+										<argument>-Xms512m</argument>
+										<argument>-Xmx512m</argument>
+										<argument>-classpath</argument>
+										<classpath />
+										<argument>${projectRunMainClass}</argument>
+									</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>
