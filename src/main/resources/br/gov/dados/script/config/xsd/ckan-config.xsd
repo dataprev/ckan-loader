@@ -41,6 +41,7 @@
 						<xs:element name="notes" type="xs:string" minOccurs="1" maxOccurs="1" />
 						<xs:element name="tags" type="xs:string" minOccurs="1" maxOccurs="1" />
 						<xs:element name="state" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="organization" type="xs:string" minOccurs="1" maxOccurs="1" />
 						<xs:element name="resources-csv-path" type="xs:string" minOccurs="1" maxOccurs="1" />
 						<xs:element name="groups-csv-path" type="xs:string" minOccurs="1" maxOccurs="1" />
 						<!-- criar elemento que considere key/value  -->

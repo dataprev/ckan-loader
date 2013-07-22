@@ -26,6 +26,7 @@
 			<dados:notes></dados:notes>
 			<dados:tags></dados:tags>
 			<dados:state></dados:state>
+			<dados:organization></dados:organization>
 			<dados:resources-csv-path>csv/sample1.csv</dados:resources-csv-path>
 			<dados:groups-csv-path></dados:groups-csv-path>
 		</dados:ckan-dataset>
@@ -43,6 +44,7 @@
 			<dados:notes>Colors Hex value JSON</dados:notes>
 			<dados:tags></dados:tags>
 			<dados:state></dados:state>
+			<dados:organization></dados:organization>
 			<dados:resources-csv-path>csv/sample2.csv</dados:resources-csv-path>
 			<dados:groups-csv-path></dados:groups-csv-path>
 		</dados:ckan-dataset>

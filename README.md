@@ -1,8 +1,18 @@
-ckan-loader
+Documentação do ckan-loader
 ===========
-Aplicação escrita em Jython. Funciona em uma máquina virtual Java. Sua finalidade é apoiar a carga de diversos recursos de dados, de forma batch, no catálogo de dados abertos por intermédio da api rest.
+Conteúdo do repositório:
+/env : Exemplo para utilização do ckan-loader
+/src : Fontes
 
-Para executar:
+Para compilar mudanças no xsd:
+> mvn -Pjaxb_generate validate
+
+Para gerar o binário:
+> mvn clean package
+
+Após gerar o binário, o mesmo deve ser colocado na pasta env para executar o exemplo.
+
+Para executar a aplicação:
 > java -jar ckan-loader.jar env-key
 
 sendo "env-key" a chave definida no arquivo xml de configuração.

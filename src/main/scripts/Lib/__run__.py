@@ -44,6 +44,7 @@ class ConfigurationHandle:
             #print  "Notes: "+xmlDataset.getNotes();
             #print  "Tags: "+xmlDataset.getTags();
             #print  "State: "+xmlDataset.getState();
+            #print  "Organization: "+xmlDataset.getOrganization();
             #print  "Csv Resources Path: "+xmlDataset.getResourcesCsvPath();
             #print  "Csv Groups Path: "+xmlDataset.getGroupsCsvPath();
             #print "##########################"
@@ -96,6 +97,7 @@ class ConfigurationHandle:
                            notes=xmlDataset.getNotes(),
                            tags=xmlDataset.getTags(),
                            state=xmlDataset.getState(),
+                           owner_org=xmlDataset.getOrganization(),
                            resources=resourceList);
             
             datasetList.append(dataset);
